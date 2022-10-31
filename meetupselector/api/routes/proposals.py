@@ -15,7 +15,7 @@ router = Router(auth=django_auth)
 
 
 @router.get(
-    "/proposal",
+    "/",
     response={200: t.List[ProposalListSchema]},
     url_name="create_list_proposal",
     auth=None,
@@ -24,13 +24,13 @@ def list_proposals(request):
     return 200, ProposalService.retrieve_all()
 
 
-@router.post("/proposal", response={201: ProposalRetrieveSchema}, auth=None)
+@router.post("/", response={201: ProposalRetrieveSchema}, auth=None)
 def create_proposal(request, proposal: ProposalCreateSchema):
     return 201, ProposalService.create(**proposal.dict())
 
 
 @router.put(
-    "/proposal/{proposal_id}/like",
+    "/{proposal_id}/like",
     response={204: None},
     url_name="like_proposal",
 )
@@ -41,7 +41,7 @@ def like_proposal(request, proposal_id: UUID4):
 
 
 @router.delete(
-    "/proposal/{proposal_id}/like",
+    "/{proposal_id}/like",
     response={204: None},
     url_name="like_proposal",
 )
